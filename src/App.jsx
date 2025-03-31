@@ -1,10 +1,14 @@
-import { useState } from "react";
-import "./App.css";
-import PartOne from "./pages/PartOne";
-import React from "react";
+import React from 'react'
+import PartOne from "./pages/PartOne"
+import MqttPublisher from './components/mqtt/MqttPublisher'
 
-function App() {
-  return <> <PartOne/></>;
+const App = () => {
+  return (
+   <>
+  <PartOne/>
+  <MqttPublisher/>
+   </>
+  )
 }
 
-export default App;
+export default App
