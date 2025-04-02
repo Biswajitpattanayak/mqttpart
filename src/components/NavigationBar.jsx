@@ -39,8 +39,8 @@ const NavigationBar = () => {
   // Function to handle starting the test
   const handleStartTest = () => {
     if (client && connected) {
-      const topic = "123/data";
-      // const topic = "123";
+      const topic = "project/maintenance/command";
+      // const topic = "123/data";
 
       // Adding timestamp to the message
       const message = JSON.stringify({
@@ -62,18 +62,13 @@ const NavigationBar = () => {
           const testTopic = "project/maintenance/command";
           const testMessage = "RUN_SELFTEST";
 
-          client.publish(
-            testTopic,
-            testMessage,
-            { qos: 1, retain: false },
-            (err) => {
-              if (err) {
-                console.error("❌ Publish error:", err);
-              } else {
-                console.log("📤 Published after 10s:", testMessage);
-              }
+          client.publish(testTopic, testMessage, { qos: 1, retain: false }, (err) => {
+            if (err) {
+              console.error("❌ Publish error:", err);
+            } else {
+              console.log("📤 Published after 10s:", testMessage);
             }
-          );
+          });
         }
       }, 10000); // 10-second delay
 
@@ -97,8 +92,6 @@ const NavigationBar = () => {
       >
         {connected ? "Start Test" : "Connecting..."}
       </button>
-
-
 
       {/* Navigation Buttons */}
       <div className="flex flex-row mt-4 gap-2">

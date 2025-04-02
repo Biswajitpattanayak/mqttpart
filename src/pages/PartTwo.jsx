@@ -29,13 +29,9 @@ const PartTwo = () => {
       let data = message.toString();
       console.log("Raw Data Received:", data);
 
-      // Update messages state and save to localStorage
       setMessages(prevMessages => {
         const updatedMessages = [...prevMessages, data];
-
-        // Save updated messages to local storage
         localStorage.setItem("mqttMessages", JSON.stringify(updatedMessages));
-
         return updatedMessages;
       });
     });
@@ -43,9 +39,21 @@ const PartTwo = () => {
     return () => client.end();
   }, []);
 
+  // Reset function to clear stored messages
+  const handleReset = () => {
+    localStorage.removeItem("mqttMessages");
+    setMessages([]);
+  };
+
   return (
     <div className="p-4 flex justify-center bg-gray-100">
-      <div className="w-full max-w-2xl border-4 border-blue-500 rounded-lg shadow-lg bg-white p-6">
+      <div className="w-full max-w-2xl border-4 border-blue-500 rounded-lg shadow-lg bg-white p-6 relative">
+        <button 
+          onClick={handleReset} 
+          className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Reset
+        </button>
         <h1 className="text-2xl font-bold mb-4 text-center text-blue-600">MQTT Data</h1>
         <div className="p-4 border border-gray-300 rounded bg-gray-50">
           {messages.length === 0 ? (

@@ -89,8 +89,8 @@ const MaintenanceStatus = () => {
     client.on("connect", () => {
       console.log("MQTT Connected");
       setIsConnected(true);
-      // client.subscribe("project/maintenance/status");
-      client.subscribe("123/data");
+      client.subscribe("project/maintenance/status");
+      // client.subscribe("123/data");
     });
 
     client.on("disconnect", () => {
@@ -225,6 +225,16 @@ const MaintenanceStatus = () => {
           <div className="text-sm text-gray-500">
             Last updated: {sensorData.lastUpdated ? new Date(sensorData.lastUpdated).toLocaleTimeString() : "Never"}
           </div>
+
+          <button 
+    className="ml-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+    onClick={() => {
+      localStorage.removeItem('sensorData'); // Clear stored data
+      setSensorData(initialState); // Reset state to initial values
+    }}
+  >
+    Reset
+  </button>
         </div>
        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
